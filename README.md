@@ -2,7 +2,7 @@
 Unimar Ecommerce é um projeto acadêmico desenvolvido por alunos da Unimar com o objetivo de simular uma plataforma de comércio eletrônico. Nosso diferencial é que os produtos e serviços disponíveis no site são os mesmos vendidos pelos alunos da nossa própria sala de aula!
 
 ## 💡 Sobre o Projeto
-Este ecommerce foi desenvolvido como parte de um projeto para a disciplina de Desenvolvimento Web. A ideia inicial proposta pelo professor foi criar uma loja virtual onde apenas os alunos da sala pudessem ser vendedores, oferecendo produtos e serviços que já comercializam presencialmente.
+Este ecommerce foi desenvolvido como parte de um projeto para a disciplina de Engenharia de Software. A ideia inicial proposta pelo professor foi criar uma loja virtual onde apenas os alunos da sala pudessem ser vendedores, oferecendo produtos e serviços que já comercializam presencialmente.
 
 Entre os itens que podem ser encontrados, estão:
 
