@@ -8,8 +8,6 @@ Entre os itens que podem ser encontrados, estão:
 
 - Comidas como paçoca, esfirra, hambúrguer 🍔
 
-- Artigos diversos como narguilé 💨
-
 - Serviços: como ajudar com trabalhos acadêmicos, dar carona, entre outros 🚗📚
 
 Além disso, o projeto está evoluindo para se tornar um marketplace completo, onde qualquer aluno pode se cadastrar como vendedor e gerenciar seus próprios produtos e pedidos.
