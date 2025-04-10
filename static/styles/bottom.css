@@ -1,11 +1,16 @@
 .bottom {
-    margin-top: auto;
+    position: absolute;
+    bottom: -50px;
     display: flex;
+    background-color: rgb(0, 91, 170);
     align-items: center;
     justify-content: center;
-    background-color: rgb(0, 91, 170);
     height: 100px;
     width: 100%;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.bottom p {
+
 }

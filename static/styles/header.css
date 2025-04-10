@@ -121,3 +121,7 @@
     height: 18px;
     margin: 0;
 }
+
+.cart-button:hover {
+    background-color: rgb(224, 224, 224);
+}

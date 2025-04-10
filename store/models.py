@@ -41,3 +41,18 @@ class Pedido(models.Model):
 
     def __str__(self):
         return self.produto
+    
+class Carrinho(models.Model):
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def total(self):
+        return sum(item.subtotal() for item in self.itens.all())
+
+class ItemCarrinho(models.Model):
+    carrinho = models.ForeignKey(Carrinho, related_name='itens', on_delete=models.CASCADE)
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    quantidade = models.PositiveIntegerField(default=1)
+
+    def subtotal(self):
+        return self.produto.preco * self.quantidade
+    

@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{% static 'styles/bottom.css' %}">
     <link rel="stylesheet" href="{% static 'styles/messages.css' %}">
     <link rel="stylesheet" href="{% static 'styles/product-page.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/cart.css' %}">
 </head>
 <body>
     <div class="header">
@@ -43,10 +44,10 @@
                   </div>
               </ul>
 
-            <button class="cart-button">
+            <a class="cart-button" href="{% url 'ver_carrinho' %}">
                 <img class="cart-icon" src="{% static 'assets/icons/cart-icon.png' %}">
                 Carrinho
-            </button>
+            </a>
         </div>
     </div>
 
