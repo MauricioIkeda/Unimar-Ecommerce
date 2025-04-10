@@ -1,0 +1,64 @@
+.register-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 710px;
+}
+
+.register-form {
+    color: white;
+}
+
+
+.register-field p{
+    margin: 0;
+    margin-bottom: 3px;
+    color: white;
+}
+
+.register-field {
+    margin-bottom: 23px;
+}
+
+.register-field input {
+    font-size: 15px;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    background-color: rgb(0, 91, 170);
+    border-radius: 20px;
+    width: 500px;
+}
+
+.register-inputs {
+    border: none;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    width: 450px;
+    height: 25px;
+    text-align: center;
+}
+
+.register-button {
+    margin-top: 15px;
+    margin-bottom: 25px;
+    border: none;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.register-button:hover {
+    background-color: rgb(226, 226, 226);
+}

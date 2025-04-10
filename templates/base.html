@@ -1,0 +1,61 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unimar Ecommerce</title>
+
+    <link rel="stylesheet" href="{% static 'styles/general.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/header.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/product.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/banner.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/cadastrar.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/bottom.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/messages.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/product-page.css' %}">
+</head>
+<body>
+    <div class="header">
+        <div class="left-section-header">
+            <img class="unimar-logo" src="{% static 'assets/unimar-logo.png' %}">
+        </div>
+
+        <nav class="middle-section-header">
+            <ul>
+                <li><a href="{% url 'home' %}">Início</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>              
+
+        <div class="right-section-header">
+            <ul class="account-menu">
+                  <a class="account" href="#">Conta</a>
+                  <div class="account-dropdown-menu">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'deslogar' %}">Deslogar</a>
+                    {% else %}
+                    <a href="{% url 'cadastrar' %}">Registrar</a>
+                    <a href="{% url 'logar' %}">Logar</a>
+                    {% endif %}
+                  </div>
+              </ul>
+
+            <button class="cart-button">
+                <img class="cart-icon" src="{% static 'assets/icons/cart-icon.png' %}">
+                Carrinho
+            </button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        {% block body %}{% endblock body %}
+    </div>
+
+    <div class="bottom">
+        <p>&copy; 2025 Unimar Ecommerce</p>
+    </div>
+</body>
+</html>
