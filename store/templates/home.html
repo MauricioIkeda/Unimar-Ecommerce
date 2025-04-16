@@ -1,23 +1,56 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% load static %}
 
 {% block body %}
-<div class="banner">
-    <div class="banner-letter">
-        Melhor site de computaria do Brasil!
+<div class="home-div">
+    <div class="unimar-banner">
+        <p>A melhor loja de computaria do Brasil!</p>
+        <img src="{% static 'assets/unimar-banner.webp' %}">
     </div>
-    <img class="banner-img" src="{% static 'assets/testes/banner.webp' %}">
-</div>
 
-<div class="products-grid">
-    {% for produto in produtos %}
-        <div class="product-block">
-            <img class="product-image" src="{{produto.imagem.url}}">
-            <p class="product-name">{{produto.nome}}</p>
-            <p class="product-price">R${{produto.preco}}</p>
-            <a class="product-button" href="{% url 'product' produto.id %}">Ver Produto</a>
+    <div class="products-showcase">
+        <div class="product">
+            <img src="{% static 'assets/testes/Camiseta_Garoto_de_Programa.jpg' %}">
+            <p class="product-name">Camiseta Garoto de Programa</p>
+            <p class="product-price">R$100</p>
+            <a href="">Ver</a>
         </div>
-    {% endfor %}
+
+        <div class="product">
+            <img src="{% static 'assets/testes/Camiseta_Garoto_de_Programa.jpg' %}">
+            <p class="product-name">Camiseta Garoto de Programa</p>
+            <p class="product-price">R$100</p>
+            <a href="">Ver</a>
+        </div>
+
+        <div class="product">
+            <img src="{% static 'assets/testes/Camiseta_Garoto_de_Programa.jpg' %}">
+            <p class="product-name">Camiseta Garoto de Programa</p>
+            <p class="product-price">R$100</p>
+            <a href="">Ver</a>
+        </div>
+
+        <div class="product">
+            <img src="{% static 'assets/testes/Camiseta_Garoto_de_Programa.jpg' %}">
+            <p class="product-name">Camiseta Garoto de Programa</p>
+            <p class="product-price">R$100</p>
+            <a href="">Ver</a>
+        </div>
+
+        <div class="product">
+            <img src="{% static 'assets/testes/Camiseta_Garoto_de_Programa.jpg' %}">
+            <p class="product-name">Camiseta Garoto de Programa</p>
+            <p class="product-price">R$100</p>
+            <a href="">Ver</a>
+        </div>
+
+        <div class="product">
+            <img src="{% static 'assets/testes/Camiseta_Garoto_de_Programa.jpg' %}">
+            <p class="product-name">Camiseta Garoto de Programa</p>
+            <p class="product-price">R$100</p>
+            <a href="">Ver</a>
+        </div>
+    </div>
 </div>
 {% endblock body %}

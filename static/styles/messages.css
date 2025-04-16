@@ -1,12 +1,12 @@
 .messages-box {
-    position: absolute; /* ou absolute se você quiser que fique dentro de um container */
-    top: 175px;        /* ajuste a posição vertical */
+    position: absolute;
+    top: 175px;
     left: 50%;
-    transform: translateX(-50%); /* centraliza horizontalmente */
-    background-color: #f8d7da;   /* cor de fundo para destacar */
+    transform: translateX(-50%);
+    background-color: #f8d7da;
     color: #721c24;
     padding: 10px 20px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    z-index: 9999; /* bem alto para ficar acima de tudo */
+    z-index: 9999;
 }

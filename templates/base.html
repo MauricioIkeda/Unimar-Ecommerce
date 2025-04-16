@@ -7,56 +7,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unimar Ecommerce</title>
 
-    <link rel="stylesheet" href="{% static 'styles/general.css' %}">
     <link rel="stylesheet" href="{% static 'styles/header.css' %}">
-    <link rel="stylesheet" href="{% static 'styles/product.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/general.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/footer.css' %}">
     <link rel="stylesheet" href="{% static 'styles/banner.css' %}">
-    <link rel="stylesheet" href="{% static 'styles/cadastrar.css' %}">
-    <link rel="stylesheet" href="{% static 'styles/bottom.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/products-home.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/form.css' %}">
     <link rel="stylesheet" href="{% static 'styles/messages.css' %}">
-    <link rel="stylesheet" href="{% static 'styles/product-page.css' %}">
-    <link rel="stylesheet" href="{% static 'styles/cart.css' %}">
 </head>
 <body>
-    <div class="header">
-        <div class="left-section-header">
-            <img class="unimar-logo" src="{% static 'assets/unimar-logo.png' %}">
-        </div>
-
-        <nav class="middle-section-header">
-            <ul>
-                <li><a href="{% url 'home' %}">Início</a></li>
-                <li><a href="#sobre">Sobre</a></li>
-                <li><a href="#contato">Contato</a></li>
-            </ul>
-        </nav>              
-
-        <div class="right-section-header">
-            <ul class="account-menu">
-                  <a class="account" href="#">Conta</a>
-                  <div class="account-dropdown-menu">
-                    {% if user.is_authenticated %}
-                    <a href="{% url 'deslogar' %}">Deslogar</a>
-                    {% else %}
-                    <a href="{% url 'cadastrar' %}">Registrar</a>
-                    <a href="{% url 'logar' %}">Logar</a>
-                    {% endif %}
-                  </div>
-              </ul>
-
-            <a class="cart-button" href="{% url 'ver_carrinho' %}">
-                <img class="cart-icon" src="{% static 'assets/icons/cart-icon.png' %}">
-                Carrinho
+    <header>
+        <div class="container">
+            <a href="{% url "home" %}">
+                <img class="unimar-logo" src="{% static 'assets/unimar-logo.png' %}">
             </a>
+
+            <nav class="navbar">
+                <ul>
+                    <li><a href="{% url "home" %}">Inicio</a></li>
+                    <li><a href="">Sobre</a></li>
+                </ul>
+            </nav>
+
+            <div class="left-container">
+                <div class="account-menu">
+                    <p>Conta</p>
+                    <div class="account-menu-dropdown">
+                        {% if user.is_authenticated %}
+                            <a href="{% url "deslogar" %}">Deslogar</a>
+                        {% else %}
+                            <a href="{% url "cadastrar" %}">Registrar</a>
+                            <a href="{% url "logar" %}">Logar</a>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <a class="cart-button" href="">
+                    <img src="{% static 'assets/icons/cart-icon.png' %}">
+                    Carrinho
+                </a>
+            </div>
         </div>
-    </div>
+    </header>
 
-    <div class="main-content">
+    <main>
         {% block body %}{% endblock body %}
-    </div>
+    </main>
 
-    <div class="bottom">
-        <p>&copy; 2025 Unimar Ecommerce</p>
-    </div>
+    <footer class="footer">
+        &copy; 2025 Unimar, Inc. ou suas afiliadas
+    </footer>
 </body>
 </html>
