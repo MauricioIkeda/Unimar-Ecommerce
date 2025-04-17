@@ -10,47 +10,14 @@
     </div>
 
     <div class="products-showcase">
+        {% for produto in produtos %}
         <div class="product">
-            <img src="{% static 'assets/testes/Camiseta_Garoto_de_Programa.jpg' %}">
-            <p class="product-name">Camiseta Garoto de Programa</p>
-            <p class="product-price">R$100</p>
-            <a href="">Ver</a>
+            <img src="{{produto.imagem.url}}">
+            <p class="product-name">{{produto.nome}}</p>
+            <p class="product-price">R${{produto.preco}}</p>
+            <a href="{% url "pagina_produto" produto.id %}">Ver</a>
         </div>
-
-        <div class="product">
-            <img src="{% static 'assets/testes/Camiseta_Garoto_de_Programa.jpg' %}">
-            <p class="product-name">Camiseta Garoto de Programa</p>
-            <p class="product-price">R$100</p>
-            <a href="">Ver</a>
-        </div>
-
-        <div class="product">
-            <img src="{% static 'assets/testes/Camiseta_Garoto_de_Programa.jpg' %}">
-            <p class="product-name">Camiseta Garoto de Programa</p>
-            <p class="product-price">R$100</p>
-            <a href="">Ver</a>
-        </div>
-
-        <div class="product">
-            <img src="{% static 'assets/testes/Camiseta_Garoto_de_Programa.jpg' %}">
-            <p class="product-name">Camiseta Garoto de Programa</p>
-            <p class="product-price">R$100</p>
-            <a href="">Ver</a>
-        </div>
-
-        <div class="product">
-            <img src="{% static 'assets/testes/Camiseta_Garoto_de_Programa.jpg' %}">
-            <p class="product-name">Camiseta Garoto de Programa</p>
-            <p class="product-price">R$100</p>
-            <a href="">Ver</a>
-        </div>
-
-        <div class="product">
-            <img src="{% static 'assets/testes/Camiseta_Garoto_de_Programa.jpg' %}">
-            <p class="product-name">Camiseta Garoto de Programa</p>
-            <p class="product-price">R$100</p>
-            <a href="">Ver</a>
-        </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock body %}

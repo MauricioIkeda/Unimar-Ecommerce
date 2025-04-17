@@ -45,3 +45,9 @@ def logar(request):
 def deslogar(request):
         logout(request)
         return redirect('home')
+
+def solicitar_vendedor(request):
+    return render(request, 'solicitar_vendedor.html')
+
+def perfil(request, username):
+    return render(request, 'perfil_usuario.html', {})

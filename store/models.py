@@ -15,3 +15,10 @@ class Produto(models.Model):
     descricao = models.CharField(max_length=255, default='', blank=True, null=True)
     imagem = models.ImageField(upload_to='uploads/produtos/')
     vendedor = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nome
+    
+class Profile(models.Model):
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
+    vendedor = models.BooleanField(default=False)

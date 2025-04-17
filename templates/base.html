@@ -34,6 +34,7 @@
                     <p>Conta</p>
                     <div class="account-menu-dropdown">
                         {% if user.is_authenticated %}
+                            <a href="{% url "perfil_user" user.username %}">Perfil</a>
                             <a href="{% url "deslogar" %}">Deslogar</a>
                         {% else %}
                             <a href="{% url "cadastrar" %}">Registrar</a>
@@ -42,7 +43,7 @@
                     </div>
                 </div>
                 
-                <a class="cart-button" href="">
+                <a class="cart-button" href="{% url "carrinho" %}">
                     <img src="{% static 'assets/icons/cart-icon.png' %}">
                     Carrinho
                 </a>

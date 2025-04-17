@@ -41,6 +41,8 @@ header {
     color: white;
     font-size: 20px;
     font-weight: bold;
+    background-color: rgb(0, 91, 170);
+    border-radius: 5px;
     transition: color 0.3s ease, transform 0.2s ease-in-out;
 }
 
