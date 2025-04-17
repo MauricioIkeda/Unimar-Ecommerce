@@ -19,6 +19,3 @@ class Produto(models.Model):
     def __str__(self):
         return self.nome
     
-class Profile(models.Model):
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
-    vendedor = models.BooleanField(default=False)
