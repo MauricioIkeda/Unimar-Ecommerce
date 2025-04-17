@@ -2,12 +2,15 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
+from .models import Profile
+from Store.models import Produto
 
 def cadastrar(request):
     if request.method == "GET":
         return render(request, 'cadastrar.html')
     elif request.method == "POST":
         username = request.POST.get('usuario') 
+        nome = request.POST.get('nome')
         password1 = request.POST.get('senha1')
         password2 = request.POST.get('senha2')
         if password1 != password2:
@@ -20,7 +23,7 @@ def cadastrar(request):
                  messages.success(request, ("O username já está cadastrado, tente novamente!"))
                  return redirect('cadastrar') 
             
-            user = User.objects.create_user(username=username, password=password1)
+            user = User.objects.create_user(username=username, password=password1, first_name=nome)
             user.save()
 
 
@@ -50,4 +53,9 @@ def solicitar_vendedor(request):
     return render(request, 'solicitar_vendedor.html')
 
 def perfil(request, username):
-    return render(request, 'perfil_usuario.html', {})
+    usuario = User.objects.get(username=username)
+    profile = Profile.objects.get(usuario=usuario)
+    produtos = Produto.objects.filter(vendedor=usuario)
+
+    print(profile)
+    return render(request, 'perfil_usuario.html', {'profile':profile, 'produtos':produtos, 'usuario':usuario})

@@ -1,3 +1,38 @@
 {% extends 'base.html' %}
 
 {% load static %}
+
+{% block body %}
+<div class="div-perfil">
+    <img class="foto-perfil" src="{{profile.foto.url}}" alt="">
+
+    <div class="info-perfil">
+        <h1 class="nome-perfil">{{usuario.first_name}}</h1>
+
+        <p class="bios-perfil">{{profile.bios}}</p>
+    </div>
+</div>
+
+<div class="produtos-perfil">
+    <p>Produtos a Venda</p>
+</div>
+
+<div class="div-perfil-produtos">
+    <div class="produtos-perfil-showcase">
+        {% if produtos %}
+            {% for produto in produtos %}
+            <div class="product">
+                <img src="{{produto.imagem.url}}">
+                <p class="product-name">{{produto.nome}}</p>
+                <p class="product-price">R${{produto.preco}}</p>
+                <a href="{% url "pagina_produto" produto.id %}">Ver</a>
+            </div>
+            {% endfor %}
+        {% else %}
+            <h1>Não possui produtos a venda!</h1>
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock body %}
