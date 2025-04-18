@@ -1,37 +1,40 @@
 
 
-.div-produto-editar {
+.div-produto-lista {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.produto-editar {
+.produto-lista {
     display: flex;
     align-items: center;
     gap: 25px;
     width: auto;
+    margin-bottom: 10px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
 }
 
-.produto-editar img{
+.produto-lista img{
     width: 100px;
     height: 100px;
     object-fit: cover;
 }
 
-.produto-editar p {
+.produto-lista p {
     font-size: 17px;
 }
 
-.produto-editar-nome {
+.produto-lista-nome {
     width: 225px;
     margin-right: 25px;
 }
 
-.produto-editar a {
+.produto-lista a {
     text-decoration: none;
     color: white;
     background-color: rgb(0, 91, 170);
     padding: 5px 10px;
     border-radius: 3px;
+    margin-right: 10px;
 }

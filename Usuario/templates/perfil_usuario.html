@@ -16,7 +16,9 @@
         <div class="info-perfil-row2">
             {% if request.user == usuario %}
                 <a class="editar-perfil" href="{% url "editar_perfil" request.user %}">Editar Perfil</a>
-                <a class="lista_produtos" href="{% url "lista_produtos" request.user %}">Editar Produtos</a>
+                {% if profile.vendedor == True %}
+                    <a class="lista_produtos" href="{% url "lista_produtos" request.user %}">Editar Produtos</a>
+                {% endif %}
             {% endif %}
         </div>
     </div>

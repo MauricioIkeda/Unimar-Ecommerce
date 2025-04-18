@@ -83,7 +83,6 @@ def editar_perfil(request, username):
             perfil.bios = bios
 
         if imagem:
-            print('Carregando imagem...')
             fs = FileSystemStorage(location='media/uploads/fotos_perfil/', base_url='/media/uploads/fotos_perfil/')
             filename = fs.save(imagem.name, imagem)
             perfil.foto = 'uploads/fotos_perfil/' + filename 
@@ -96,3 +95,24 @@ def lista_produtos(request, username):
     usuario = User.objects.get(username=username)
     produtos = Produto.objects.filter(vendedor=usuario)
     return render(request, 'lista_produtos.html', {'produtos':produtos})
+
+def editar_produto(request, id_produto):
+    produto = Produto.objects.get(id=id_produto)
+    usuario = User.objects.get(id=produto.vendedor.id)
+
+    if request.method == "GET":
+        return render(request, 'editar_produto.html', {'produto':produto})
+    elif request.method == "POST":
+        produto.nome = request.POST.get('nome')
+        produto.descricao = request.POST.get('descricao')
+        produto.preco = request.POST.get('preco')
+        imagem = request.FILES.get('imagem')
+
+        if imagem:
+            fs = FileSystemStorage(location='media/uploads/produtos/', base_url='/media/uploads/produtos/')
+            filename = fs.save(imagem.name, imagem)
+            produto.imagem = 'uploads/produtos/' + filename 
+        
+        produto.save()
+
+        return redirect('perfil_user', username=usuario.username)

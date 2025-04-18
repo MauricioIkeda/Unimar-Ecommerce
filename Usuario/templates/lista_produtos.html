@@ -4,13 +4,13 @@
 
 {% block body %}
 <h1 class='title'>Produtos</h1>
-<div class='div-produto-editar'>
+<div class='div-produto-lista'>
     {% for produto in produtos %}
-        <div class="produto-editar">
+        <div class="produto-lista">
             <img src="{{ produto.imagem.url }}">
-            <p class="produto-editar-nome">{{ produto.nome }}</p>
-            <p class="produto-editar-preco">R${{ produto.preco }}</p>
-            <a href="">Editar</a>
+            <p class="produto-lista-nome">{{ produto.nome }}</p>
+            <p class="produto-lista-preco">R${{ produto.preco }}</p>
+            <a href="{% url 'editar_produto' produto.id %}">Editar</a>
         </div>
     {% endfor %}
 </div>
