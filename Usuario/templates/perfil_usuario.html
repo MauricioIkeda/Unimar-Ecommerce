@@ -14,7 +14,10 @@
         </div>
         
         <div class="info-perfil-row2">
-            <a class="editar-perfil" href="{% url "editar_perfil" request.user %}">Editar Perfil</a>
+            {% if request.user == usuario %}
+                <a class="editar-perfil" href="{% url "editar_perfil" request.user %}">Editar Perfil</a>
+                <a class="lista_produtos" href="{% url "lista_produtos" request.user %}">Editar Produtos</a>
+            {% endif %}
         </div>
     </div>
 </div>

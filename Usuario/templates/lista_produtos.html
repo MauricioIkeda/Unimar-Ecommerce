@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block body %}
+<h1 class='title'>Produtos</h1>
+<div class='div-produto-editar'>
+    {% for produto in produtos %}
+        <div class="produto-editar">
+            <img src="{{ produto.imagem.url }}">
+            <p class="produto-editar-nome">{{ produto.nome }}</p>
+            <p class="produto-editar-preco">R${{ produto.preco }}</p>
+            <a href="">Editar</a>
+        </div>
+    {% endfor %}
+</div>
+{% endblock body %}

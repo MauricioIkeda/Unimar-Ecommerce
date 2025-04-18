@@ -91,3 +91,8 @@ def editar_perfil(request, username):
         perfil.save()
 
         return redirect('perfil_user', username=username)
+    
+def lista_produtos(request, username):
+    usuario = User.objects.get(username=username)
+    produtos = Produto.objects.filter(vendedor=usuario)
+    return render(request, 'lista_produtos.html', {'produtos':produtos})

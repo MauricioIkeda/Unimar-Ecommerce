@@ -11,6 +11,8 @@
 .info-perfil-row2 {
     display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 20px;
 }
 
 .foto-perfil {
@@ -53,6 +55,7 @@
     margin-top: 25px;
 }
 
+.lista_produtos,
 .editar-perfil {
     text-decoration: none;
     color: white;
