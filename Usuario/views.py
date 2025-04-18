@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from .models import Profile
 from Store.models import Produto
+from django.core.files.storage import FileSystemStorage
 
 def cadastrar(request):
     if request.method == "GET":
@@ -57,5 +58,36 @@ def perfil(request, username):
     profile = Profile.objects.get(usuario=usuario)
     produtos = Produto.objects.filter(vendedor=usuario)
 
-    print(profile)
     return render(request, 'perfil_usuario.html', {'profile':profile, 'produtos':produtos, 'usuario':usuario})
+
+def editar_perfil(request, username):
+    usuario = User.objects.get(username=username)
+    perfil = Profile.objects.get(usuario=usuario)
+
+    if request.method == 'GET':
+        if request.user.username == username:
+            return render(request, 'editar_perfil.html', {'usuario':usuario, 'perfil':perfil})
+        else:
+            return redirect('home')
+
+    elif request.method == 'POST':
+        nome = request.POST.get('nome')
+        bios = request.POST.get('bios')
+        imagem = request.FILES.get('foto_perfil')
+
+        if nome:
+            usuario.first_name = nome
+            usuario.save()
+
+        if bios:
+            perfil.bios = bios
+
+        if imagem:
+            print('Carregando imagem...')
+            fs = FileSystemStorage(location='media/uploads/fotos_perfil/', base_url='/media/uploads/fotos_perfil/')
+            filename = fs.save(imagem.name, imagem)
+            perfil.foto = 'uploads/fotos_perfil/' + filename 
+
+        perfil.save()
+
+        return redirect('perfil_user', username=username)

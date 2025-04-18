@@ -44,6 +44,37 @@ form h1 {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 1);
 }
 
+.form-input-bios {
+    width: 250px;
+    border-radius: 20px;
+    border: none;
+    padding: 10px;
+    resize: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 1);
+    font-family: inherit;
+    height: 100px;
+    text-align: left;
+}
+
+.custom-file-upload {
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 10px;
+    width: 250px;
+    height: 30px;
+    border-radius: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 1);
+    transition: background-color 0.2s ease;
+}
+
+.custom-file-upload:hover {
+    background-color: #f0f0f0;
+}
+
+
 .form-button {
     color: black;
     background-color: white;
