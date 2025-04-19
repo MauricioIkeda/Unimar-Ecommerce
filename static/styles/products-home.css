@@ -42,6 +42,7 @@
 
 .product-name {
     font-weight: bold;
+    height: 32px;
 }
 
 .product-price {
@@ -60,4 +61,24 @@
 
 .product a:hover {
     background-color: rgba(0, 91, 170, 0.781);
+}
+
+@media (max-width: 768px) {
+    .product {
+        width: 120px !important;
+    }
+
+    .product img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .product p {
+        font-size: 0.9em;
+    }
+
+    .product a {
+        font-size: 0.9em;
+        padding: 5px 15px;
+    }
 }

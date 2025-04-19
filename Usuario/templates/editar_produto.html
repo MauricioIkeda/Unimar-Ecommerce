@@ -22,6 +22,11 @@
         </div>
 
         <div class='form-field'>
+            <p>Quantidade Estoque</p>
+            <input class="form-input" type="number" name='quantidade_estoque' step="1" min="0" value="{{ produto.quantidade }}">
+        </div>
+
+        <div class='form-field'>
             <p>Imagem Produto</p>
             <img class="product-edit-img" src="{{ produto.imagem.url }}">
             <label for="id_image" class="custom-file-upload">

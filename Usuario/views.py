@@ -106,6 +106,7 @@ def editar_produto(request, id_produto):
         produto.nome = request.POST.get('nome')
         produto.descricao = request.POST.get('descricao')
         produto.preco = request.POST.get('preco')
+        produto.quantidade = request.POST.get('quantidade_estoque')
         imagem = request.FILES.get('imagem')
 
         if imagem:

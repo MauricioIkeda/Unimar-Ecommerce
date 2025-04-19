@@ -32,12 +32,14 @@
     <div class="produtos-perfil-showcase">
         {% if produtos %}
             {% for produto in produtos %}
-            <div class="product">
-                <img src="{{produto.imagem.url}}">
-                <p class="product-name">{{produto.nome}}</p>
-                <p class="product-price">R${{produto.preco}}</p>
-                <a href="{% url "pagina_produto" produto.id %}">Ver</a>
-            </div>
+                {% if produto.quantidade > 0 %}
+                    <div class="product">
+                        <img src="{{produto.imagem.url}}">
+                        <p class="product-name">{{produto.nome}}</p>
+                        <p class="product-price">R${{produto.preco}}</p>
+                        <a href="{% url "pagina_produto" produto.id %}">Ver</a>
+                    </div>
+                {% endif %}
             {% endfor %}
         {% else %}
             <h1>Não possui produtos a venda!</h1>

@@ -66,15 +66,28 @@
 
 @media (max-width: 768px) {
     .div-perfil,
-    .div-perfil-produtos,
-    .produtos-perfil-showcase {
+    .div-perfil-produtos{
         flex-direction: column;
         align-items: center;
+    }
+
+    .produtos-perfil-showcase {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        max-width: 800px;
+        width: 100%;
     }
 
     .info-perfil {
         margin-left: 0;
         text-align: center;
+    }
+
+    .info-perfil-row1{
+        height: auto;
+        margin-bottom: 10px;
     }
 
     .foto-perfil {
@@ -93,11 +106,6 @@
     .produtos-perfil p {
         font-size: 20px;
         margin-top: 30px;
-    }
-
-    .product {
-        width: 90%;
-        max-width: 300px;
     }
 
     .produtos-perfil-showcase {
