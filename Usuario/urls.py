@@ -10,5 +10,6 @@ urlpatterns = [
     path('perfil/editar_perfil/<str:username>', views.editar_perfil, name='editar_perfil'),
     path('perfil/lista_produtos/<str:username>', views.lista_produtos, name='lista_produtos'),
     path('perfil/lista_produtos/editar/<int:id_produto>', views.editar_produto, name='editar_produto'),
-    path('perfil/lista_produtos/<str:username>/adicionar/', views.adicionar_produto, name='adicionar_produto')
+    path('perfil/lista_produtos/<str:username>/adicionar/', views.adicionar_produto, name='adicionar_produto'),
+    path('perfil/lista_produtos/<int:id_produto>/excluir/', views.excluir_produto, name='excluir_produto')
 ]

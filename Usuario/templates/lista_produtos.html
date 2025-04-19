@@ -13,6 +13,10 @@
             <p class="produto-lista-nome">{{ produto.nome }}</p>
             <p class="produto-lista-preco">R${{ produto.preco }}</p>
             <a href="{% url 'editar_produto' produto.id %}">Editar</a>
+            <form class="excluir-produto" action="{% url 'excluir_produto' id_produto=produto.id %}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este produto?');">
+                {% csrf_token %}
+                <input class="form-button delete-button" type="submit" value="X">
+            </form>
         </div>
     {% endfor %}
 </div>

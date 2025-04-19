@@ -10,5 +10,5 @@ def produto(request, id_produto):
     produto = get_object_or_404(Produto, id=id_produto)
     return render(request, 'produto.html', {'produto':produto})
 
-def carrinho(request, username):
+def carrinho(request):
     return render(request, 'carrinho.html', {})

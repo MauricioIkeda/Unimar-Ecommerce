@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="product-edit-div">
-    <form action="{% url 'adicionar_produto' usuariousername %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+    <form class='form-unimar' action="{% url 'adicionar_produto' usuariousername %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
 
         <div class='form-field'>
             <p>Nome</p>
@@ -18,7 +18,7 @@
 
         <div class='form-field'>
             <p>Preço</p>
-            <input class="form-input" type="number" name='preco' step="any" required>
+            <input class="form-input" type="number" name='preco' step="0.01" min="0" max="9999.99" required>
         </div>
 
         <div class='form-field'>

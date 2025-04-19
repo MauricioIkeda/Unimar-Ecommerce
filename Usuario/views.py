@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from .models import Profile
 from Store.models import Produto
 from django.core.files.storage import FileSystemStorage
+import os
 
 def cadastrar(request):
     if request.method == "GET":
@@ -138,7 +139,7 @@ def adicionar_produto(request, username):
             return redirect('home')
 
     elif request.method == 'POST':
-        produto = Produto.objects.create(usuario=request.user)
+        produto = Produto.objects.create(vendedor=request.user)
         produto.nome = request.POST.get('nome')
         produto.descricao = request.POST.get('descricao')
         produto.preco = request.POST.get('preco')
@@ -152,3 +153,17 @@ def adicionar_produto(request, username):
         produto.save()
 
         return redirect('perfil_user', username=request.user.username)
+    
+def excluir_produto(request, id_produto):
+    produto = get_object_or_404(Produto, id=id_produto)
+
+    if request.method == 'POST':
+
+        if produto.imagem:
+            imagem_path = produto.imagem.path
+            if os.path.exists(imagem_path):
+                os.remove(imagem_path)
+        produto.delete()
+        return redirect('lista_produtos', username=request.user.username)
+    
+    return redirect('lista_produtos', username=request.user.username)

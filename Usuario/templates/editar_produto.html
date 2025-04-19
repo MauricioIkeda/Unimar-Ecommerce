@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="product-edit-div">
-    <form action="{% url 'editar_produto' id_produto=produto.id %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+    <form class='form-unimar' action="{% url 'editar_produto' id_produto=produto.id %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
 
         <div class='form-field'>
             <p>Nome</p>
