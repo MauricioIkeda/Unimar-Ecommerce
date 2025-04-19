@@ -1,0 +1,89 @@
+.product-page-div {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+}
+
+.product-page-div img{
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+}
+
+.product-page-info-1 {
+    width: 350px;
+}
+
+.product-page-info-1 h1{
+    font-size: 40px;
+    width: 100%;
+    height: auto;
+}
+
+.product-page-seller {
+    color: gray;
+    margin-bottom: 15px;
+}
+
+.product-page-descricao {
+    height: 125px;
+}
+
+.product-page-info-2 {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+    padding: 10px 15px;
+}
+
+.product-page-preco-div {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.RS {
+    font-size: 20px;
+    margin-top: 14px;
+}
+
+.product-page-preco {
+    font-size: 36px;
+}
+
+.product-page-estoque {
+    margin-top: 5px;
+    color: green;
+}
+
+.product-page-cart-form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-page-quantity-input {
+    text-align: center;
+    border-style: solid;
+    border-radius: 8px;
+    font-size: 17px;
+    margin-top: 3px;
+    margin-bottom: 15px;
+}
+
+.product-page-add-cart {
+    text-decoration: none;
+    font-size: 13px;
+    color: black;
+    background-color: rgb(255, 208, 0);
+    padding: 7px 20px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.product-page-add-cart:hover {
+    background-color: rgba(255, 208, 0, 0.726);
+}

@@ -16,7 +16,7 @@ class Produto(models.Model):
     descricao = models.CharField(max_length=255, default='', blank=True, null=True)
     quantidade = models.IntegerField(default=1, validators=[MinValueValidator(0)])
     imagem = models.ImageField(upload_to='uploads/produtos/')
-    vendedor = models.ForeignKey(User, on_delete=models.CASCADE)
+    vendedor = models.ForeignKey(User, related_name='produtos', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nome

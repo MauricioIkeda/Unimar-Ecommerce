@@ -56,18 +56,15 @@ def solicitar_vendedor(request):
 
 def perfil(request, username):
     usuario = User.objects.get(username=username)
-    profile = Profile.objects.get(usuario=usuario)
-    produtos = Produto.objects.filter(vendedor=usuario)
 
-    return render(request, 'perfil_usuario.html', {'profile':profile, 'produtos':produtos, 'usuario':usuario})
+    return render(request, 'perfil_usuario.html', {'usuario':usuario})
 
 def editar_perfil(request, username):
     usuario = User.objects.get(username=username)
-    perfil = Profile.objects.get(usuario=usuario)
 
     if request.method == 'GET':
         if request.user.username == username:
-            return render(request, 'editar_perfil.html', {'usuario':usuario, 'perfil':perfil})
+            return render(request, 'editar_perfil.html', {'usuario':usuario})
         else:
             return redirect('home')
 
@@ -81,23 +78,22 @@ def editar_perfil(request, username):
             usuario.save()
 
         if bios:
-            perfil.bios = bios
+            usuario.perfil.bios = bios
 
         if imagem:
             fs = FileSystemStorage(location='media/uploads/fotos_perfil/', base_url='/media/uploads/fotos_perfil/')
             filename = fs.save(imagem.name, imagem)
-            perfil.foto = 'uploads/fotos_perfil/' + filename 
+            usuario.perfil.foto = 'uploads/fotos_perfil/' + filename 
 
-        perfil.save()
+        usuario.perfil.save()
 
         return redirect('perfil_user', username=username)
     
 def lista_produtos(request, username):
     usuario = User.objects.get(username=username)
-    produtos = Produto.objects.filter(vendedor=usuario)
 
     if request.user.username == username:
-        return render(request, 'lista_produtos.html', {'produtos':produtos, 'usuariousername':username})
+        return render(request, 'lista_produtos.html', {'usuario':usuario, 'usuariousername':username})
     else:
         return redirect('home')
 

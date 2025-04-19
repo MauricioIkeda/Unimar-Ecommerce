@@ -9,7 +9,7 @@
     {% endfor %}
 {% endif %}
 <div class="form">
-    <form action="{% url 'editar_perfil' username=request.user.username %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+    <form class='form-unimar' action="{% url 'editar_perfil' username=request.user.username %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
 
         <h1>Editar Perfil!</h1>
 
@@ -20,7 +20,7 @@
 
         <div class='form-field'>
             <p>Bios</p>
-            <textarea class="form-input-bios" type="text" name='bios'>{{ perfil.bios }}</textarea>
+            <textarea class="form-input-bios" name='bios'>{{ usuario.perfil.bios }}</textarea>
         </div>
 
         <div class='form-field'>

@@ -4,19 +4,19 @@
 
 {% block body %}
 <div class="div-perfil">
-    <img class="foto-perfil" src="{{profile.foto.url}}" alt="">
+    <img class="foto-perfil" src="{{usuario.perfil.foto.url}}" alt="">
 
     <div class="info-perfil">
         <div class="info-perfil-row1">
             <h1 class="nome-perfil">{{usuario.first_name}}</h1>
 
-            <p class="bios-perfil">{{profile.bios}}</p>
+            <p class="bios-perfil">{{usuario.perfil.bios}}</p>
         </div>
         
         <div class="info-perfil-row2">
             {% if request.user == usuario %}
                 <a class="editar-perfil" href="{% url "editar_perfil" request.user %}">Editar Perfil</a>
-                {% if profile.vendedor == True %}
+                {% if usuario.perfil.vendedor == True %}
                     <a class="lista_produtos" href="{% url "lista_produtos" request.user %}">Editar Produtos</a>
                 {% endif %}
             {% endif %}
@@ -30,8 +30,8 @@
 
 <div class="div-perfil-produtos">
     <div class="produtos-perfil-showcase">
-        {% if produtos %}
-            {% for produto in produtos %}
+        {% if usuario.produtos.all %}
+            {% for produto in usuario.produtos.all %}
                 {% if produto.quantidade > 0 %}
                     <div class="product">
                         <img src="{{produto.imagem.url}}">
