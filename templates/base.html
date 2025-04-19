@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 
-                <a class="cart-button" href="{% url "carrinho" %}">
+                <a class="cart-button" href="{% url "carrinho" request.user.username %}">
                     <img src="{% static 'assets/icons/cart-icon.png' %}">
                     Carrinho
                 </a>

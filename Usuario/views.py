@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -94,14 +94,21 @@ def editar_perfil(request, username):
 def lista_produtos(request, username):
     usuario = User.objects.get(username=username)
     produtos = Produto.objects.filter(vendedor=usuario)
-    return render(request, 'lista_produtos.html', {'produtos':produtos})
+
+    if request.user.username == username:
+        return render(request, 'lista_produtos.html', {'produtos':produtos, 'usuariousername':username})
+    else:
+        return redirect('home')
 
 def editar_produto(request, id_produto):
     produto = Produto.objects.get(id=id_produto)
     usuario = User.objects.get(id=produto.vendedor.id)
 
     if request.method == "GET":
-        return render(request, 'editar_produto.html', {'produto':produto})
+        if request.user == usuario:
+            return render(request, 'editar_produto.html', {'produto':produto})
+        else:
+            return redirect('home')
     elif request.method == "POST":
         produto.nome = request.POST.get('nome')
         produto.descricao = request.POST.get('descricao')
@@ -117,3 +124,31 @@ def editar_produto(request, id_produto):
         produto.save()
 
         return redirect('perfil_user', username=usuario.username)
+    
+def adicionar_produto(request, username):
+    if request.user.is_authenticated:
+        perfil = get_object_or_404(Profile, usuario=request.user)
+    else:
+        return redirect('home')
+
+    if request.method == 'GET':
+        if perfil.vendedor and request.user.username == username:
+            return render(request, 'adicionar_produto.html', {'usuariousername':username})
+        else:
+            return redirect('home')
+
+    elif request.method == 'POST':
+        produto = Produto.objects.create(usuario=request.user)
+        produto.nome = request.POST.get('nome')
+        produto.descricao = request.POST.get('descricao')
+        produto.preco = request.POST.get('preco')
+        produto.quantidade = request.POST.get('quantidade_estoque')
+        imagem = request.FILES.get('imagem')
+
+        fs = FileSystemStorage(location='media/uploads/produtos/', base_url='/media/uploads/produtos/')
+        filename = fs.save(imagem.name, imagem)
+        produto.imagem = 'uploads/produtos/' + filename 
+        
+        produto.save()
+
+        return redirect('perfil_user', username=request.user.username)

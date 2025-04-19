@@ -4,7 +4,9 @@
 
 {% block body %}
 <h1 class='title'>Produtos</h1>
+
 <div class='div-produto-lista'>
+    <a style="margin-bottom: 25px;" class="button-unimar" href="{% url 'adicionar_produto' usuariousername %}">Adicionar Produto</a>
     {% for produto in produtos %}
         <div class="produto-lista">
             <img src="{{ produto.imagem.url }}">

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block body %}
+<div class="product-edit-div">
+    <form action="{% url 'adicionar_produto' usuariousername %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+
+        <div class='form-field'>
+            <p>Nome</p>
+            <input class="form-input" type="text" name='nome' required>
+        </div>
+
+        <div class='form-field'>
+            <p>Descrição</p>
+            <textarea class="form-input-bios" type="text" name='descricao' required></textarea>
+        </div>
+
+        <div class='form-field'>
+            <p>Preço</p>
+            <input class="form-input" type="number" name='preco' step="any" required>
+        </div>
+
+        <div class='form-field'>
+            <p>Quantidade Estoque</p>
+            <input class="form-input" type="number" name='quantidade_estoque' step="1" min="0" required>
+        </div>
+
+        <div class='form-field'>
+            <p>Imagem Produto</p>
+            <img class="product-edit-img" src="{{ produto.imagem.url }}">
+            <label for="id_image" class="custom-file-upload">
+                Escolher imagem
+            </label>
+            <input type="file" name="imagem" id="id_image" hidden required>
+        </div>
+
+        <div class='form-field'>
+            <input class="form-button" type="submit" value="Adicionar">
+        </div>
+    
+    </form>
+    
+</div>
+{% endblock body %}
