@@ -79,7 +79,22 @@
     gap: 10px;
 }
 
+.cart-product-vertical-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
 .cart-total-price {
+}
+
+.cart-product-exclude {
+    text-decoration: none;
+    color: red;
+    font-weight: bold;
+    font-size: 17px;
+    margin-top: 93px;
+    margin-right: 10px;
 }
 
 .cart-finish-button {
