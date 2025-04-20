@@ -21,7 +21,7 @@ class Carrinho(models.Model):
 class ItemCarrinho(models.Model):
     carrinho = models.ForeignKey(Carrinho, related_name='itens', on_delete=models.CASCADE)
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
-    quantidade = models.PositiveIntegerField(default=1)
+    quantidade = models.PositiveIntegerField(default=0)
 
     def subtotal(self):
         return self.produto.preco * self.quantidade

@@ -18,6 +18,7 @@
                     </div>
 
                     <div class='cart-product-vertical-2'>
+                        <p class='cart-product-price'>Valor Unitario: R${{ item.produto.preco }}</p>
                         <p class='cart-product-price'>Subtotal: R${{ item.subtotal }}</p>
                         <a class='cart-product-exclude' href="{% url 'excluir_carrinho' item.produto.id %}">Excluir</a>
                     </div>

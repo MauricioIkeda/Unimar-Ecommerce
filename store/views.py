@@ -34,13 +34,12 @@ def adicionar_carrinho(request, id_produto, quantidade):
     carrinho, criou = Carrinho.objects.get_or_create(usuario=request.user)
     item, criou = ItemCarrinho.objects.get_or_create(carrinho=carrinho, produto=produto)
     
-    if item.quantidade + quantidade - 1 <= produto.quantidade:
-        if request.POST:
-            item.quantidade += quantidade - 1
-            item.save()
-        else:
-            item.quantidade += quantidade
-            item.save()
+    if item.quantidade + quantidade <= produto.quantidade:
+        item.quantidade += quantidade
+        item.save()
+    else:
+        item.quantidade = produto.quantidade
+        item.save()
 
     return redirect('carrinho')
 
