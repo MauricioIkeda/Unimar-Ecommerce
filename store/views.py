@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Produto
 from Usuario.models import Carrinho, ItemCarrinho
 from django.shortcuts import get_object_or_404
+from django.contrib import messages
 
 def home(request):
     produtos = Produto.objects.all()
@@ -13,14 +14,19 @@ def produto(request, id_produto):
     if request.method == "GET":
         return render(request, 'produto.html', {'produto':produto})
     elif request.method == "POST":
-        quantidade = int(request.POST.get('quantidade', 1))
-        adicionar_carrinho(request, produto.id, quantidade)
-        return render(request, 'produto.html', {'produto':produto})
+        if request.user.is_authenticated:
+            quantidade = int(request.POST.get('quantidade', 1))
+            adicionar_carrinho(request, produto.id, quantidade)
+            return render(request, 'produto.html', {'produto':produto})
+        else:
+            messages.error(request, ("Você deve estar logado para acessar o carrinho"))
+            return redirect('logar')
 
 def carrinho(request):
     if request.user.is_authenticated:
         return render(request, 'carrinho.html', {'usuario':request.user})
     else:
+        messages.error(request, ("Você deve estar logado para acessar o carrinho"))
         return redirect('logar')
     
 def adicionar_carrinho(request, id_produto, quantidade):
@@ -28,12 +34,12 @@ def adicionar_carrinho(request, id_produto, quantidade):
     carrinho, criou = Carrinho.objects.get_or_create(usuario=request.user)
     item, criou = ItemCarrinho.objects.get_or_create(carrinho=carrinho, produto=produto)
     
-    if not criou:
-        item.quantidade = min(quantidade, produto.quantidade)
-        item.save()
-    else:
-        if item.quantidade + quantidade <= produto.quantidade:
+    if item.quantidade + quantidade - 1 <= produto.quantidade:
+        if request.POST:
             item.quantidade += quantidade - 1
+            item.save()
+        else:
+            item.quantidade += quantidade
             item.save()
 
     return redirect('carrinho')

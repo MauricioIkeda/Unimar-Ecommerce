@@ -16,13 +16,13 @@ def cadastrar(request):
         password1 = request.POST.get('senha1')
         password2 = request.POST.get('senha2')
         if password1 != password2:
-            messages.success(request, ("Senhas diferentes! tente novamente!"))
+            messages.error(request, ("Senhas diferentes! tente novamente!"))
             return redirect('cadastrar')
         else:
             user = User.objects.filter(username=username)
 
             if user:
-                 messages.success(request, ("O username já está cadastrado, tente novamente!"))
+                 messages.error(request, ("O username já está cadastrado, tente novamente!"))
                  return redirect('cadastrar') 
             
             user = User.objects.create_user(username=username, password=password1, first_name=nome)
@@ -44,7 +44,7 @@ def logar(request):
             login(request, user)
             return redirect('home')
         else:
-            messages.success(request, ("Usuario ou senha incorreto, tente novamente!"))
+            messages.error(request, ("Usuario ou senha incorreto, tente novamente!"))
             return redirect('logar')
 
 def deslogar(request):
@@ -69,25 +69,44 @@ def editar_perfil(request, username):
             return redirect('home')
 
     elif request.method == 'POST':
-        nome = request.POST.get('nome')
-        bios = request.POST.get('bios')
-        imagem = request.FILES.get('foto_perfil')
+        if 'salvar' in request.POST:
+            nome = request.POST.get('nome')
+            bios = request.POST.get('bios')
+            imagem = request.FILES.get('foto_perfil')
 
-        if nome:
-            usuario.first_name = nome
-            usuario.save()
+            if nome:
+                usuario.first_name = nome
+                usuario.save()
 
-        if bios:
-            usuario.perfil.bios = bios
+            if bios:
+                usuario.perfil.bios = bios
 
-        if imagem:
-            fs = FileSystemStorage(location='media/uploads/fotos_perfil/', base_url='/media/uploads/fotos_perfil/')
-            filename = fs.save(imagem.name, imagem)
-            usuario.perfil.foto = 'uploads/fotos_perfil/' + filename 
+            if imagem:
+                perfil = usuario.perfil
+                caminho_imagem_default = perfil._meta.get_field('foto').default
 
-        usuario.perfil.save()
+                if perfil.foto and perfil.foto.name != caminho_imagem_default:
+                    if os.path.isfile(perfil.foto.path):
+                        os.remove(perfil.foto.path)
+                fs = FileSystemStorage(location='media/uploads/fotos_perfil/', base_url='/media/uploads/fotos_perfil/')
+                filename = fs.save(imagem.name, imagem)
+                usuario.perfil.foto = 'uploads/fotos_perfil/' + filename 
 
-        return redirect('perfil_user', username=username)
+            usuario.perfil.save()
+
+            return redirect('perfil_user', username=username)
+        elif 'excluir' in request.POST:
+            perfil = usuario.perfil
+            caminho_imagem_default = perfil._meta.get_field('foto').default
+
+            if perfil.foto and perfil.foto.name != caminho_imagem_default:
+                if os.path.isfile(perfil.foto.path):
+                    os.remove(perfil.foto.path)
+
+            user = request.user
+            user.delete()
+            logout(request)
+            return redirect('home')
     
 def lista_produtos(request, username):
     usuario = User.objects.get(username=username)

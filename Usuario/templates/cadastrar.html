@@ -3,7 +3,7 @@
 {% block body %}
 {% if messages %}
     {% for message in messages %}
-    <div class="messages-box">
+    <div class="messages-box {{ message.level_tag }}">
         {{ message }}
     </div>
     {% endfor %}

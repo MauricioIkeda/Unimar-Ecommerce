@@ -31,8 +31,9 @@
             <input type="file" name="foto_perfil" id="id_image" hidden>
         </div>
 
-        <div class='form-field'>
-            <input class="form-button" type="submit" value="Salvar">
+        <div class='form-field-horizontal'>
+            <input class="form-button" name='salvar' type="submit" value="Salvar Perfil">
+            <input class="form-button back-red text-white" name='excluir' type="submit" onclick="return confirm('Tem certeza que deseja excluir este perfil?');" value="Excluir Perfil">
         </div>
     
     </form>

@@ -4,6 +4,14 @@
     box-sizing: border-box;
 }
 
+.back-red {
+    background-color: red !important;;
+}
+
+.text-white {
+    color: white !important;;
+}
+
 html, body {
     height: 100%;
 }

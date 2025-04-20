@@ -28,6 +28,13 @@
     align-items: center;
 }
 
+.form-field-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.form-field-row,
 .form-field p {
     color: white;
     font-weight: bold;
