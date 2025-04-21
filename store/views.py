@@ -4,6 +4,8 @@ from Usuario.models import Carrinho, ItemCarrinho
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 
+from apimercadopago import realizar_pagamento
+
 def home(request):
     produtos = Produto.objects.all()
     return render(request, 'home.html', {'produtos':produtos})
@@ -69,3 +71,27 @@ def excluir_carrinho(request, id_produto):
     if item:
         item.delete()
     return redirect('carrinho')
+
+def pagamento(request):
+    carrinho = Carrinho.objects.filter(usuario=request.user).first()
+
+    items = []
+    for item in carrinho.itens.all():
+        items.append({
+            "title": item.produto.nome,
+            "quantity": item.quantidade,
+            "currency_id": "BRL",
+            "unit_price": float(item.produto.preco),
+        })
+
+    link_pagamento = realizar_pagamento(items)
+    return redirect(link_pagamento)
+
+def compra_success(request):
+    return render(request, 'compra_success.html', {})
+
+def compra_failure(request):
+    return render(request, 'compra_failure.html', {})
+
+def compra_pending(request):
+    return render(request, 'compra_pending.html', {})

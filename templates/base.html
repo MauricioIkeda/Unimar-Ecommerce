@@ -31,7 +31,7 @@
                 <ul>
                     <li><a href="{% url "home" %}">Inicio</a></li>
                     {% if request.user.is_authenticated and not request.user.perfil.vendedor %}
-                    <li><a href="">Tornar Vendedor</a></li>
+                    <li><a href="{% url 'solicitar_vendedor' %}">Tornar Vendedor</a></li>
                     {% endif %}
                     <li><a href="">Sobre</a></li>
                 </ul>

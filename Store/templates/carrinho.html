@@ -29,7 +29,7 @@
     {% if usuario.carrinho.itens.all %}
         <div class='cart-info'>
             <p class='cart-total-price'>Preco Total: R${{ usuario.carrinho.total }}</p>
-            <a class='cart-finish-button' href="">Finalizar Pedido</a>
+            <a class='cart-finish-button' href="{% url 'pagamento' %}">Finalizar Pedido</a>
         </div>
     {% else %}
         <h1>Carrinho Vazio!</h1>
