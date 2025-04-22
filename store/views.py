@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
+from collections import defaultdict
 
 from apimercadopago import realizar_pagamento
 
@@ -78,39 +79,47 @@ def excluir_carrinho(request, id_produto):
 
 def pagamento(request):
     carrinho = Carrinho.objects.filter(usuario=request.user).first()
-    
 
-    order = Order.objects.create(
-        vendedor=carrinho.itens.first().produto.vendedor,
-        comprador=request.user
-    )
+    itens_por_vendedor = defaultdict(list)
+    for item in carrinho.itens.all():
+        itens_por_vendedor[item.produto.vendedor].append(item)
 
     payment_items = []
-    total = 0
+    total_geral = 0
+    pedidos_criados = []
 
-    for item in carrinho.itens.all():
-        item_order = ItemOrder.objects.create(
-            order=order,
-            produto=item.produto,
-            quantidade=item.quantidade,
-            preco=item.produto.preco
+    for vendedor, itens in itens_por_vendedor.items():
+        order = Order.objects.create(
+            vendedor=vendedor,
+            comprador=request.user
         )
 
-        subtotal = item_order.subtotal()
-        total += subtotal
+        for item in itens:
+            item_order = ItemOrder.objects.create(
+                order=order,
+                produto=item.produto,
+                quantidade=item.quantidade,
+                preco=item.produto.preco
+            )
 
-        payment_items.append({
-            "id": str(item.produto.id),
-            "title": item.produto.nome,
-            "quantity": item.quantidade,
-            "currency_id": "BRL",
-            "unit_price": float(item.produto.preco)
-        })
+            subtotal = item_order.subtotal()
+            total_geral += subtotal
 
-    order.valor_total = total
-    order.save()
+            payment_items.append({
+                "id": str(item.produto.id),
+                "title": item.produto.nome,
+                "quantity": item.quantidade,
+                "currency_id": "BRL",
+                "unit_price": float(item.produto.preco)
+            })
+
+        order.valor_total = sum(item.subtotal() for item in order.itens.all())
+        order.save()
+        pedidos_criados.append(order)
 
     link_pagamento = realizar_pagamento(payment_items)
+    request.session['pedidos_ids'] = [pedido.id for pedido in pedidos_criados]
+
     return redirect(link_pagamento)
 
 @csrf_exempt
