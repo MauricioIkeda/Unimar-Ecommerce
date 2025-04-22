@@ -1,8 +1,12 @@
 from django.shortcuts import render, redirect
 from .models import Produto
-from Usuario.models import Carrinho, ItemCarrinho
+from Usuario.models import Carrinho, ItemCarrinho, Order, ItemOrder
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+import json
 
 from apimercadopago import realizar_pagamento
 
@@ -74,20 +78,70 @@ def excluir_carrinho(request, id_produto):
 
 def pagamento(request):
     carrinho = Carrinho.objects.filter(usuario=request.user).first()
+    
 
-    items = []
+    order = Order.objects.create(
+        vendedor=carrinho.itens.first().produto.vendedor,
+        comprador=request.user
+    )
+
+    payment_items = []
+    total = 0
+
     for item in carrinho.itens.all():
-        items.append({
+        item_order = ItemOrder.objects.create(
+            order=order,
+            produto=item.produto,
+            quantidade=item.quantidade,
+            preco=item.produto.preco
+        )
+
+        subtotal = item_order.subtotal()
+        total += subtotal
+
+        payment_items.append({
+            "id": str(item.produto.id),
             "title": item.produto.nome,
             "quantity": item.quantidade,
             "currency_id": "BRL",
-            "unit_price": float(item.produto.preco),
+            "unit_price": float(item.produto.preco)
         })
 
-    link_pagamento = realizar_pagamento(items)
+    order.valor_total = total
+    order.save()
+
+    link_pagamento = realizar_pagamento(payment_items)
     return redirect(link_pagamento)
 
+@csrf_exempt
+def mercadopago_webhook(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+
+        payment_id = data.get("data", {}).get("id")
+
+        if payment_id:
+            from mercadopago import SDK
+            sdk = SDK("SEU_TOKEN_PRIVADO")
+
+            payment_response = sdk.payment().get(payment_id)
+            payment_status = payment_response["response"]["status"]
+
+            if payment_status == "approved":
+                carrinho = Carrinho.objects.filter(usuario=request.user).first()
+
+                for item in carrinho.itens.all():
+                    item.produto.quantidade -= item.quantidade
+                print("Pagamento aprovado!")
+        
+        return JsonResponse({"status": "ok"})
+
+
 def compra_success(request):
+    carrinho = Carrinho.objects.filter(usuario=request.user).first()
+
+    for item in carrinho.itens.all():
+        item.produto.quantidade -= item.quantidade
     return render(request, 'compra_success.html', {})
 
 def compra_failure(request):

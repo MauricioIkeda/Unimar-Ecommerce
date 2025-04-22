@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from Store.models import Produto
+from Store.models import Produto, Order
 
 # Create your models here.
 class Profile(models.Model):
@@ -25,3 +25,12 @@ class ItemCarrinho(models.Model):
 
     def subtotal(self):
         return self.produto.preco * self.quantidade
+
+class ItemOrder(models.Model):
+    order = models.ForeignKey(Order, related_name='itens', on_delete=models.CASCADE)
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    quantidade = models.PositiveIntegerField(default=1)
+    preco = models.DecimalField(default=0, decimal_places=2, max_digits=6)
+
+    def subtotal(self):
+        return self.preco * self.quantidade

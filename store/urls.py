@@ -12,4 +12,5 @@ urlpatterns = [
     path('carrinho/compra_realizada/', views.compra_success, name='compra_success'),
     path('carrinho/compra_falha/', views.compra_failure, name='compra_failure'),
     path('carrinho/compra_pendente/', views.compra_pending, name='compra_pending'),
+    path('webhook/mercadopago/', views.mercadopago_webhook, name='mercadopago_webhook'),
 ]
