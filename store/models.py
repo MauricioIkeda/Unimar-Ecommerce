@@ -23,19 +23,15 @@ class Produto(models.Model):
 
 class Order(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    vendedor = models.ForeignKey(User, related_name='vendedor', on_delete=models.CASCADE)
-    comprador = models.ForeignKey(User, related_name='comprador', on_delete=models.CASCADE)
-    valor_total = models.DecimalField(max_digits=10, decimal_places=2)
+    vendedor = models.ForeignKey(User, related_name='order_seller', on_delete=models.CASCADE)
+    comprador = models.ForeignKey(User, related_name='order_buyer', on_delete=models.CASCADE)
+    valor_total_pedido = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     status = models.CharField(max_length=50, default='pendente')
     data = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Pedido {self.id} - {self.cliente} - {self.status} - {self.data}"
-    
-    def valor_total(self):
-        valor_total = 0
+        return f"Pedido {str(self.id)} - {self.comprador.username} - {self.status} - {self.data.strftime('%Y-%m-%d %H:%M')}"
 
-        for item in self.itens.all():
-            item.subtotal += valor_total
-        
-        return valor_total
+    @property
+    def calcular_valor_total(self):
+        return sum(item.subtotal for item in self.itens.all())

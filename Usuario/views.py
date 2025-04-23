@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, Order
 from Store.models import Produto
 from django.core.files.storage import FileSystemStorage
 import os
@@ -182,3 +182,12 @@ def excluir_produto(request, id_produto):
         return redirect('lista_produtos', username=request.user.username)
     
     return redirect('lista_produtos', username=request.user.username)
+
+def vendas(request):
+    orders = request.user.order_seller.all()
+    return render(request, 'vendas.html', {'orders':orders})
+
+def vendas_details(request, order_id):
+    order = Order.objects.get(id=order_id)
+    itemOrders = order.itens.all()
+    return render(request, 'vendas_details.html', {'itemOrders': itemOrders})

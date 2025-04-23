@@ -14,16 +14,9 @@ SECRET_KEY = 'django-insecure-vx$g6+jvy01&aaljfkcup643+c5ukkpe8!2i5a#1c!37rv&u1k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'localhost',
-    'c782-2804-1254-2089-a700-e5dc-4b99-4201-1635.ngrok-free.app',
-]
+ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://c782-2804-1254-2089-a700-e5dc-4b99-4201-1635.ngrok-free.app',
-    'http://127.0.0.1:8000',  # Caso você esteja testando localmente também
-]
+CSRF_TRUSTED_ORIGINS = ['https://e98f-191-241-23-30.ngrok-free.app']
 
 # Application definition
 
@@ -101,9 +94,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 

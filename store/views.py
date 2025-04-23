@@ -10,6 +10,9 @@ import json
 from collections import defaultdict
 
 from apimercadopago import realizar_pagamento
+from dotenv import load_dotenv
+import os
+import mercadopago
 
 def home(request):
     produtos = Produto.objects.all()
@@ -102,8 +105,7 @@ def pagamento(request):
                 preco=item.produto.preco
             )
 
-            subtotal = item_order.subtotal()
-            total_geral += subtotal
+            total_geral = item.quantidade * item.produto.preco
 
             payment_items.append({
                 "id": str(item.produto.id),
@@ -113,25 +115,25 @@ def pagamento(request):
                 "unit_price": float(item.produto.preco)
             })
 
-        order.valor_total = sum(item.subtotal() for item in order.itens.all())
+        order.valor_total_pedido = total_geral  # Atualizando o valor total do pedido
         order.save()
         pedidos_criados.append(order)
 
     link_pagamento = realizar_pagamento(payment_items)
-    request.session['pedidos_ids'] = [pedido.id for pedido in pedidos_criados]
+    request.session['pedidos_ids'] = [str(pedido.id) for pedido in pedidos_criados]
 
     return redirect(link_pagamento)
 
 @csrf_exempt
 def mercadopago_webhook(request):
+    load_dotenv()
     if request.method == 'POST':
         data = json.loads(request.body)
 
         payment_id = data.get("data", {}).get("id")
 
         if payment_id:
-            from mercadopago import SDK
-            sdk = SDK("SEU_TOKEN_PRIVADO")
+            sdk = mercadopago.SDK(f'{os.getenv("MP_ACCESS_TOKEN")}')
 
             payment_response = sdk.payment().get(payment_id)
             payment_status = payment_response["response"]["status"]
@@ -141,17 +143,14 @@ def mercadopago_webhook(request):
 
                 for item in carrinho.itens.all():
                     item.produto.quantidade -= item.quantidade
+                    item.produto.save()
                 print("Pagamento aprovado!")
         
         return JsonResponse({"status": "ok"})
 
-
 def compra_success(request):
-    carrinho = Carrinho.objects.filter(usuario=request.user).first()
-
-    for item in carrinho.itens.all():
-        item.produto.quantidade -= item.quantidade
     return render(request, 'compra_success.html', {})
+
 
 def compra_failure(request):
     return render(request, 'compra_failure.html', {})

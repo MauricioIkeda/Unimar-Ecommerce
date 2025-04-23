@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from Store.models import Produto, Order
+from django.core.validators import MinValueValidator
 
 # Create your models here.
 class Profile(models.Model):
@@ -28,9 +29,13 @@ class ItemCarrinho(models.Model):
 
 class ItemOrder(models.Model):
     order = models.ForeignKey(Order, related_name='itens', on_delete=models.CASCADE)
-    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
-    quantidade = models.PositiveIntegerField(default=1)
+    produto = models.ForeignKey(Produto, related_name='produto', on_delete=models.CASCADE)
+    quantidade = models.IntegerField(default=1, validators=[MinValueValidator(1)])
     preco = models.DecimalField(default=0, decimal_places=2, max_digits=6)
 
+    @property
     def subtotal(self):
-        return self.preco * self.quantidade
+        return self.quantidade * self.preco
+
+    def __str__(self):
+        return f"{self.produto.nome} - {self.quantidade} unidades"

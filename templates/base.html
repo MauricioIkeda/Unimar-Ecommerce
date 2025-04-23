@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="{% static 'styles/product-edit.css' %}">
     <link rel="stylesheet" href="{% static 'styles/product-page.css' %}">
     <link rel="stylesheet" href="{% static 'styles/cart.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/vendas.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/vendas-details.css' %}">
 </head>
 <body>
     <header>
@@ -32,6 +34,8 @@
                     <li><a href="{% url "home" %}">Inicio</a></li>
                     {% if request.user.is_authenticated and not request.user.perfil.vendedor %}
                     <li><a href="{% url 'solicitar_vendedor' %}">Tornar Vendedor</a></li>
+                    {% elif request.user.perfil.vendedor and request.user.is_authenticated %}
+                    <li><a href="{% url 'vendas' %}">Vendas</a></li>
                     {% endif %}
                     <li><a href="">Sobre</a></li>
                 </ul>
