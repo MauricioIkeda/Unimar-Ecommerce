@@ -119,12 +119,8 @@ def pagamento(request):
         order.save()
         pedidos_criados.append(order)
 
-    pedido_ids = [str(pedido.id) for pedido in pedidos_criados]
-    external_reference = ",".join(pedido_ids)
-
-    link_pagamento = realizar_pagamento(payment_items, external_reference)
-    request.session['pedidos_ids'] = pedido_ids
-
+    link_pagamento = realizar_pagamento(payment_items)
+    request.session['pedidos_ids'] = [str(pedido.id) for pedido in pedidos_criados]
 
     return redirect(link_pagamento)
 
@@ -133,46 +129,23 @@ def mercadopago_webhook(request):
     load_dotenv()
     if request.method == 'POST':
         data = json.loads(request.body)
+
         payment_id = data.get("data", {}).get("id")
 
-        if not payment_id:
-            return JsonResponse({"status": "error", "message": "ID de pagamento não encontrado"}, status=400)
+        if payment_id:
+            sdk = mercadopago.SDK(f'{os.getenv("MP_ACCESS_TOKEN")}')
 
-        sdk = mercadopago.SDK(f'{os.getenv("MP_ACCESS_TOKEN")}')
-        payment_response = sdk.payment().get(payment_id)
-        response_data = payment_response["response"]
+            payment_response = sdk.payment().get(payment_id)
+            payment_status = payment_response["response"]["status"]
 
-        payment_status = response_data.get("status")
-        external_reference = response_data.get("external_reference")
-
-        if not external_reference:
-            return JsonResponse({"status": "error", "message": "Referência externa não encontrada"}, status=400)
-
-        # Se vários IDs estiverem separados por vírgula
-        pedido_ids = external_reference.split(",")
-        pedidos = Order.objects.filter(id__in=pedido_ids)
-
-        for pedido in pedidos:
-            pedido.status_pagamento = payment_status  # Você precisa ter esse campo no model Order
-            pedido.save()
-
-            # Exemplo: Atualizar estoque apenas se for aprovado
             if payment_status == "approved":
-                for pedido_id in pedido_ids:
-                    try:
-                        pedido = Order.objects.get(id=pedido_id)
+                carrinho = Carrinho.objects.filter(usuario=request.user).first()
 
-                        # Verifica se o pedido já foi aprovado
-                        if pedido.status_pagamento != "approved":
-                            pedido.status_pagamento = "approved"
-                            pedido.save()
-
-                            for item in pedido.itens.all():
-                                item.produto.quantidade -= item.quantidade
-                                item.produto.save()
-                    except:
-                        print("boa")
-
+                for item in carrinho.itens.all():
+                    item.produto.quantidade -= item.quantidade
+                    item.produto.save()
+                print("Pagamento aprovado!")
+        
         return JsonResponse({"status": "ok"})
 
 def compra_success(request):
