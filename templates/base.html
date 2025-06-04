@@ -79,7 +79,7 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                
+
                 const accountMenuButton = document.getElementById('account-menu-button');
                 const accountMenuDropdown = document.getElementById('account-menu-dropdown');
 
@@ -100,7 +100,7 @@
                         const isAlreadyOpen = parentMenu.classList.contains('is-open');
 
                         document.querySelectorAll('.category-menu.is-open').forEach(m => m.classList.remove('is-open'));
-                        
+
                         if (accountMenuDropdown) accountMenuDropdown.classList.remove('is-open');
 
                         if (!isAlreadyOpen) {

@@ -23,7 +23,7 @@
                 {% for categoria in categorias %}
                     <div class="category-menu">
                         <a href="{% url "categoria" categoria.nome %}">{{categoria.nome}}</a>
-                        
+
                         {% if categoria.subcategorias.all %}
                             <span class="category-toggle-btn">▼</span>
                             <div class="category-menu-dropdown">
