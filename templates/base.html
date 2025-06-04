@@ -33,25 +33,30 @@
 
                 <nav class="navbar">
                     <ul>
-                        <li><a href="{% url "home" %}">Inicio</a></li>
+                        <li class="hide-on-mobile"><a href="{% url "home" %}">Inicio</a></li>
+
                         {% if request.user.is_superuser%}
                             <li><a href="{% url 'ver_solicitacao' %}">Ver Solicitações</a></li>
                         {% endif %}
+
                         {% if request.user.is_authenticated and not request.user.perfil.vendedor %}
                             <li><a href="{% url 'solicitar_vendedor' %}">Tornar Vendedor</a></li>
-                        {% elif request.user.perfil.vendedor and request.user.is_authenticated %}
-                            <li><a href="{% url 'vendas' %}">Vendas</a></li>
+
                         {% endif %}
-                        <li><a href="">Sobre</a></li>
+
+                        <li class="hide-on-mobile"><a href="">Sobre</a></li>
                     </ul>
                 </nav>
 
                 <div class="left-container">
                     <div class="account-menu">
-                        <p>Conta</p>
+                        <a>Conta</a>
                         <div class="account-menu-dropdown">
                             {% if user.is_authenticated %}
                                 <a href="{% url "perfil_user" request.user.username %}">Perfil</a>
+                                {% if request.user.perfil.vendedor%}
+                                    <a href="{% url 'vendas' %}">Vendas</a>
+                                {% endif %}
                                 <a href="{% url "deslogar" %}">Deslogar</a>
                             {% else %}
                                 <a href="{% url "cadastrar" %}">Registrar</a>
@@ -62,7 +67,7 @@
 
                     <a class="cart-button" href="{% url "carrinho" %}">
                         <img src="{% static 'assets/icons/cart-icon.png' %}">
-                        Carrinho
+                        <span class="cart-text">Carrinho</span>
                     </a>
                 </div>
             </div>
