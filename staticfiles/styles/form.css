@@ -20,12 +20,14 @@
 .form-unimar h1 {
     color: white;
     margin-bottom: 12px;
+    text-align: center;
 }
 
 .form-field {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
 }
 
 .form-field-row {
@@ -104,4 +106,12 @@
 
 .form-button:hover {
     background-color: rgba(255, 255, 255, 0.89);
+}
+
+@media (max-width: 630px) {
+    .form-unimar h1 {
+        font-size: 23px;
+        text-align: center;
+    }
+
 }

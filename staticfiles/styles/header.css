@@ -4,6 +4,7 @@
     padding: 0 20px;
     display: flex;
     align-items: center;
+    justify-content: space-between; 
     height: 75px;
 }
 
@@ -32,6 +33,8 @@ header {
     list-style: none;
     display: flex;
     gap: 30px;
+    padding: 0; 
+    margin: 0; 
 }
 
 .navbar a {
@@ -51,17 +54,10 @@ header {
     transform: translateY(-2px);
 }
 
-@media (max-width: 600px) {
-    .navbar {
-        display: none;
-    }
-}
-
 .left-container {
     display: flex;
     align-items: center;
-    gap: 15px;
-    margin-left: auto;
+    gap: 1px;
 }
 
 .account-menu {
@@ -71,14 +67,14 @@ header {
     cursor: pointer;
 }
 
-.account-menu p{
+.account-menu a{
     text-align: center;
     text-decoration: none;
     color: black;
     font-size: 1rem;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background-color: white;
-    padding: 7px 10px;
+    padding: 7px 15px;
     border-radius: 5px;
 }
 
@@ -88,7 +84,7 @@ header {
     background: white;
     border: 1px solid #ccc;
     top: 100%;
-    left: 50%;
+    left: 43%;
     transform: translateX(-50%);
     border-radius: 7px;
     min-width: 85px;
@@ -130,4 +126,30 @@ header {
     width: 20px;
     height: 20px;
     display: block;
+}
+
+@media (max-width: 630px) {
+    .container {
+        padding: 0 10px; 
+    }
+
+    .unimar-logo {
+        width: 80px;
+    }
+    
+    .cart-text {
+        display: none;
+    }
+
+    .cart-button {
+        padding: 7px;
+    }
+
+    .account-menu p, .cart-button {
+        font-size: 0.9rem; 
+    }
+
+    .navbar ul .hide-on-mobile {
+        display: none;
+    }
 }

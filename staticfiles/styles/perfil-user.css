@@ -43,6 +43,7 @@
 .div-perfil-produtos {
     display: flex;
     justify-content: center;
+    text-align: center;
 }
 
 .produtos-perfil-showcase {
@@ -78,6 +79,10 @@
         gap: 20px;
         max-width: 800px;
         width: 100%;
+    }
+
+    .info-perfil-row2 {
+        justify-content: center;
     }
 
     .info-perfil {
