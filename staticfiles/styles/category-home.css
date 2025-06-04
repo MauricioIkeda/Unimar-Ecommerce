@@ -95,4 +95,16 @@
         justify-content: center;
         gap: 20px;
     }
+
+    .category-menu {
+        font-size: 10px;
+    }
+
+    .category-menu-dropdown {
+        min-width: 50px;
+    }
+
+    .category-menu-dropdown a {
+        font-size: 10px;
+    }
 }
