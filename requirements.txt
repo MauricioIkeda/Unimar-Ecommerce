@@ -14,3 +14,4 @@ tzdata==2025.2
 urllib3==2.4.0
 black
 flake8
+gunicorn
