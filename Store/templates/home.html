@@ -22,10 +22,8 @@
             <nav class="navbar-category">
                 {% for categoria in categorias %}
                     <div class="category-menu">
-                        {# O nome da categoria continua sendo um link direto #}
                         <a href="{% url "categoria" categoria.nome %}">{{categoria.nome}}</a>
 
-                        {# Se existirem subcategorias, adicionamos um botão para o dropdown #}
                         {% if categoria.subcategorias.all %}
                             <span class="category-toggle-btn">▼</span>
                             <div class="category-menu-dropdown">
