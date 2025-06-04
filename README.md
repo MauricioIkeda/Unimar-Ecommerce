@@ -184,4 +184,4 @@ Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE.txt](L
 
 ---
 
-Desenvolvido por Mauricio Ikeda e Vinicius Brandi.
+Desenvolvido por alunos da Unimar.
