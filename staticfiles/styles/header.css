@@ -1,5 +1,5 @@
 .container {
-    position: relative;
+    position: relative; 
     margin: auto;
     padding: 0 20px;
     display: flex;
@@ -57,7 +57,7 @@ header {
 .left-container {
     display: flex;
     align-items: center;
-    gap: 1px;
+    gap: 15px;
 }
 
 .account-menu {
@@ -67,30 +67,35 @@ header {
     cursor: pointer;
 }
 
-.account-menu a{
+.account-menu a {
     text-align: center;
     text-decoration: none;
     color: black;
     font-size: 1rem;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background-color: white;
-    padding: 7px 15px;
+    padding: 7px 10px;
     border-radius: 5px;
+    display: block; 
 }
 
 .account-menu-dropdown {
-    display: none;
+    display: none; 
     position: absolute;
     background: white;
     border: 1px solid #ccc;
     top: 100%;
-    left: 43%;
+    left: 50%;
     transform: translateX(-50%);
     border-radius: 7px;
     min-width: 85px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 20;
 }
 
+.account-menu-dropdown.is-open {
+    display: block;
+}
 
 .account-menu-dropdown a {
     text-align: center;
@@ -102,10 +107,6 @@ header {
 
 .account-menu-dropdown a:hover {
     color: #2600ff;
-}
-
-.account-menu:hover .account-menu-dropdown {
-    display: block;
 }
 
 .cart-button {
@@ -128,6 +129,10 @@ header {
     display: block;
 }
 
+
+/* =========================================== */
+/* ✨ MELHORIAS PARA RESPONSIVIDADE (CELULAR) ✨ */
+/* =========================================== */
 @media (max-width: 630px) {
     .container {
         padding: 0 10px; 
@@ -137,6 +142,30 @@ header {
         width: 80px;
     }
     
+    .navbar {
+        position: static; 
+        transform: none; 
+        flex-grow: 1; 
+        margin: 0 10px;
+    }
+    
+    .navbar ul {
+        gap: 15px; 
+        flex-wrap: nowrap; 
+        overflow-x: auto; 
+        -webkit-overflow-scrolling: touch; 
+        scrollbar-width: none; 
+    }
+
+    .navbar ul::-webkit-scrollbar {
+        display: none; 
+    }
+    
+    .navbar a {
+        font-size: 14px; 
+        white-space: nowrap; 
+    }
+
     .cart-text {
         display: none;
     }

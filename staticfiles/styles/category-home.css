@@ -11,22 +11,27 @@
 
 .category-menu {
     position: relative;
-    display: inline-block;
-    min-width: 85px;
+    display: flex; /* Alterado para flex para alinhar o link e o botão */
+    align-items: center;
     cursor: pointer;
     color: white;
     font-size: 20px;
     font-weight: bold;
     text-align: center;
-    transition: color 0.3s ease, transform 0.2s ease-in-out;
 }
 
-.category-menu:hover {
-    color: #fffb00;
+/* Estilo para o botão de abrir/fechar o dropdown */
+.category-toggle-btn {
+    font-size: 10px;
+    margin-left: 8px;
+    padding: 4px;
+    user-select: none; /* Evita que o texto seja selecionado ao clicar */
+    transition: transform 0.2s ease-in-out;
 }
 
-.category-menu:hover .category-menu-dropdown {
-    display: block;
+/* Gira a seta quando o menu está aberto */
+.category-menu.is-open .category-toggle-btn {
+    transform: rotate(180deg);
 }
 
 .navbar-category {
@@ -37,72 +42,65 @@
     gap: 25px;
 }
 
-.navbar-category a{
-    position: relative;
-    display: inline-block;
-    min-width: 85px;
-    cursor: pointer;
+.navbar-category a {
     color: white;
-    font-size: 20px;
     font-weight: bold;
-    text-align: center;
     text-decoration: none;
-    transition: color 0.3s ease, transform 0.2s ease-in-out;
+    transition: color 0.3s ease;
 }
 
 .navbar-category a:hover {
     color: #fffb00;
 }
 
-.navbar-category ul {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-}
-
 .category-menu-dropdown {
-    display: none;
+    display: none; /* Menu começa escondido */
     position: absolute;
     background: white;
     border: 1px solid #ccc;
-    top: 100%;
+    top: 120%; /* Posição um pouco abaixo para não sobrepor a seta */
     left: 50%;
     transform: translateX(-50%);
     border-radius: 7px;
-    min-width: 100px;
+    min-width: 120px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden; 
+    z-index: 20;
+}
+
+/* ✨ REGRA NOVA: Mostra o menu quando a classe .is-open está presente ✨ */
+.category-menu.is-open .category-menu-dropdown {
+    display: block;
 }
 
 .category-menu-dropdown a {
-    display: inline-block;
-    padding: 10px 0;
+    display: block; /* Alterado para block para ocupar a linha inteira */
+    padding: 10px;
     text-decoration: none;
     color: rgb(0, 91, 170);
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
-    border-radius: 5px;
-    transition: color 0.3s ease, transform 0.2s ease-in-out;
+    transition: background-color 0.2s ease;
 }
 
 .category-menu-dropdown a:hover {
-    color: #fffb00;
+    background-color: #f0f0f0;
+    color: #2600ff;
 }
 
-
-/* Media query para a barra de categorias */
+/* Media Query para responsividade */
 @media (max-width: 768px) {
     .container-category {
-        height: 60px; /* Altura menor no mobile */
+        height: 60px;
         padding: 0 10px;
     }
     .navbar-category {
         position: static;
         transform: none;
         width: 100%;
-        justify-content: center; /* Alinha à esquerda */
+        justify-content: flex-start; /* Alinhado à esquerda no mobile */
         gap: 20px;
-        overflow-x: auto; /* Permite scroll horizontal */
+        overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
     }
@@ -112,6 +110,6 @@
     }
 
     .category-menu a, .navbar-category a {
-        font-size: 16px; /* Fonte menor para as categorias */
+        font-size: 16px;
     }
 }
