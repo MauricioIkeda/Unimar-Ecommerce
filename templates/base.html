@@ -23,6 +23,11 @@
         <link rel="stylesheet" href="{% static 'styles/vendas-details.css' %}">
         <link rel="stylesheet" href="{% static 'styles/solicitacao.css' %}">
         <link rel="stylesheet" href="{% static 'styles/category-home.css' %}">
+
+        <link rel="stylesheet" href="{% static 'styles/about.css' %}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     </head>
     <body>
         <header>
@@ -40,7 +45,7 @@
                         {% if request.user.is_authenticated and not request.user.perfil.vendedor %}
                             <li><a href="{% url 'solicitar_vendedor' %}">Tornar Vendedor</a></li>
                         {% endif %}
-                        <li class="hide-on-mobile"><a href="">Sobre</a></li>
+                        <li class="hide-on-mobile"><a href="{% url "sobre" %}">Sobre</a></li>
                     </ul>
                 </nav>
 

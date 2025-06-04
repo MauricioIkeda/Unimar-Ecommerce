@@ -3,18 +3,15 @@ import mercadopago
 import os
 from dotenv import (
     load_dotenv,
-)  # Adicionado para garantir carregamento do .env, se usado localmente
+)
 
 
-def realizar_pagamento(
-    seller_access_token, items, external_reference, fee_amount
-):  # Nome do parâmetro da taxa alterado para clareza
-    load_dotenv()  # Carrega variáveis do .env se estiver testando localmente
+def realizar_pagamento(seller_access_token, items, external_reference, fee_amount):
+    load_dotenv()
 
     if not seller_access_token:
         raise Exception("seller_access_token não fornecido para realizar_pagamento.")
 
-    # IMPORTANTE: O SDK é iniciado com o token do VENDEDOR
     sdk = mercadopago.SDK(seller_access_token)
 
     preference_data = {
@@ -27,11 +24,9 @@ def realizar_pagamento(
         "auto_return": "all",
         "notification_url": "https://unimarprojects.pythonanywhere.com/webhook/mercadopago/",
         "external_reference": external_reference,
-        # MUDANÇA CRÍTICA: Usando marketplace_fee para Checkout Pro
         "marketplace_fee": float(fee_amount),
     }
 
-    # DEBUG: Para ver o que está sendo enviado
     print(
         "--- DEBUG API MP (Seller Token Model): Enviando Preference Data:",
         preference_data,

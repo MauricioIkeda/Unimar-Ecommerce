@@ -29,6 +29,10 @@ def home(request):
     )
 
 
+def sobre(request):
+    return render(request, "sobre.html")
+
+
 def produto(request, id_produto):
     produto = get_object_or_404(Produto, id=id_produto)
 
@@ -138,16 +142,13 @@ def pagamento(request, vendedor_id):
     vendedor = get_object_or_404(User, id=vendedor_id)
     carrinho = get_object_or_404(Carrinho, usuario=request.user)
 
-    # Pega o token de acesso do vendedor a partir do seu perfil
     seller_token = vendedor.perfil.mp_access_token
 
-    # DEBUG: Para confirmar o valor e tipo do seller_token ANTES de ser usado
     print(
         f"--- DEBUG PAGAMENTO (Store/views.py - Seller Token Model): Para vendedor ID {vendedor_id} ({vendedor.username}), "
         f"o valor de seller_token (vendedor.perfil.mp_access_token) é: '{seller_token}' ---"
     )
 
-    # Verificação crucial: O vendedor tem um token válido?
     if not seller_token:
         messages.error(
             request,
@@ -155,7 +156,6 @@ def pagamento(request, vendedor_id):
         )
         return redirect("carrinho")
 
-    # Verificação se o vendedor conectou a conta (mp_connected)
     if not vendedor.perfil.mp_connected:
         messages.error(
             request,
@@ -176,9 +176,7 @@ def pagamento(request, vendedor_id):
     order = Order.objects.create(vendedor=vendedor, comprador=request.user)
 
     for item in itens_para_pagar:
-        preco_item = Decimal(
-            str(item.produto.preco)
-        )  # Boa prática converter para string antes de Decimal
+        preco_item = Decimal(str(item.produto.preco))
         subtotal_item = item.quantidade * preco_item
         subtotal_vendedor += subtotal_item
 
@@ -202,14 +200,14 @@ def pagamento(request, vendedor_id):
     order.save()
 
     comissao_total = round(subtotal_vendedor * MARKETPLACE_FEE_PERCENTAGE, 2)
-    external_reference = str(order.id)  # Usar o ID da Order é uma boa referência
+    external_reference = str(order.id)
 
     try:
         link_pagamento = realizar_pagamento(
-            seller_token,  # Token do vendedor
+            seller_token,
             payment_items,
             external_reference,
-            comissao_total,  # Este valor será o 'fee_amount' em realizar_pagamento, que será usado para 'marketplace_fee'
+            comissao_total,
         )
     except Exception as e:
         messages.error(request, f"Erro ao gerar link de pagamento: {e}")
@@ -218,9 +216,6 @@ def pagamento(request, vendedor_id):
         )
         return redirect("carrinho")
 
-    # Remove os itens pagos do carrinho do vendedor específico
-    # Esta é uma decisão de negócio se você quer limpar o carrinho inteiro ou apenas os itens pagos.
-    # Se o carrinho é "por vendedor", então sim, delete os itens_para_pagar.
     itens_para_pagar.delete()
 
     return redirect(link_pagamento)
